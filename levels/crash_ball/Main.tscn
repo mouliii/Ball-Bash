@@ -1,0 +1,714 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://levels/crash_ball/Main.gd" type="Script" id=1]
+[ext_resource path="res://levels/crash_ball/arena.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSerif-Regular.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/scripts/GameTests.gd" type="Script" id=4]
+[ext_resource path="res://levels/crash_ball/Gui.gd" type="Script" id=5]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSans-Regular.otf" type="DynamicFontData" id=6]
+[ext_resource path="res://main_menu/MainMenu.tres" type="Theme" id=7]
+[ext_resource path="res://assets/rewards/trohpy_locked2.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSerif-Semibold.otf" type="DynamicFontData" id=9]
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "0"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "1"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "2"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "3"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=10]
+states/0/node = SubResource( 3 )
+states/0/position = Vector2( 440, 30 )
+states/1/node = SubResource( 4 )
+states/1/position = Vector2( 307, 30 )
+states/2/node = SubResource( 5 )
+states/2/position = Vector2( 179, 30 )
+states/3/node = SubResource( 6 )
+states/3/position = Vector2( 34, 30 )
+transitions = [ "3", "2", SubResource( 7 ), "2", "1", SubResource( 8 ), "1", "0", SubResource( 9 ) ]
+graph_offset = Vector2( -318, -62 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=11]
+
+[sub_resource type="Animation" id=12]
+resource_name = "0"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/GUI/Countdown/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Go!" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/GUI/Countdown/Label:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "" ],
+"method": "StartGameCountdown"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "1"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/GUI/Countdown/Label:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/GUI/Countdown/Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "1" ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/GUI/Countdown/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "2" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/GUI/Countdown/Label:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "3"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/GUI/Countdown/Label:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/GUI/Countdown/Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "3" ]
+}
+
+[sub_resource type="DynamicFont" id=20]
+size = 23
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 200
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 64
+outline_size = 3
+outline_color = Color( 1, 0.482353, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 23
+font_data = ExtResource( 3 )
+
+[node name="Main" type="Spatial" groups=["Balls", "Players"]]
+script = ExtResource( 1 )
+
+[node name="Players" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.490387, 0.871505, 0, -0.871505, 0.490387, 0, 5.60978, 4.42445 )
+current = true
+fov = 65.0
+
+[node name="Balls" type="Spatial" parent="."]
+
+[node name="GameTests" type="Spatial" parent="."]
+visible = false
+script = ExtResource( 4 )
+players = NodePath("../Players")
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AutoWin" type="Timer" parent="."]
+one_shot = true
+
+[node name="RestartGame" type="Timer" parent="."]
+one_shot = true
+
+[node name="ReturnToMainMenu" type="Timer" parent="."]
+one_shot = true
+
+[node name="arena" parent="." instance=ExtResource( 2 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="AnimationTree" type="AnimationTree" parent="CanvasLayer"]
+tree_root = SubResource( 10 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+anims/0 = SubResource( 12 )
+anims/1 = SubResource( 13 )
+anims/2 = SubResource( 14 )
+anims/3 = SubResource( 15 )
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ball_counter" type="Label" parent="CanvasLayer/GUI"]
+anchor_left = 0.018
+anchor_top = 0.174
+anchor_right = 0.193
+anchor_bottom = 0.202
+text = "balls: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerInfo" type="HBoxContainer" parent="CanvasLayer/GUI"]
+anchor_right = 1.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 1024, 56 )
+mouse_filter = 2
+custom_constants/separation = 140
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Label" parent="CanvasLayer/GUI/PlayerInfo"]
+margin_left = 716.0
+margin_top = 14.0
+margin_right = 748.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 20 )
+text = "asd"
+
+[node name="2" type="Label" parent="CanvasLayer/GUI/PlayerInfo"]
+margin_left = 888.0
+margin_top = 14.0
+margin_right = 920.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 20 )
+text = "dsa"
+
+[node name="3" type="Label" parent="CanvasLayer/GUI/PlayerInfo"]
+margin_left = 1060.0
+margin_top = 14.0
+margin_right = 1092.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 20 )
+text = "sad"
+
+[node name="4" type="Label" parent="CanvasLayer/GUI/PlayerInfo"]
+margin_left = 1232.0
+margin_top = 14.0
+margin_right = 1264.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 20 )
+text = "das"
+
+[node name="Countdown" type="Control" parent="CanvasLayer/GUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 50.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI/Countdown"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 1e-05, 1e-05 )
+custom_fonts/font = SubResource( 2 )
+text = "3"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreScreen" type="Control" parent="CanvasLayer/GUI"]
+visible = false
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/ScoreScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player1" type="HBoxContainer" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer"]
+margin_right = 396.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+alignment = 1
+
+[node name="Name" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player1"]
+margin_left = 82.0
+margin_right = 182.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "Player1"
+align = 1
+valign = 1
+
+[node name="Wins" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player1"]
+margin_left = 186.0
+margin_right = 226.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "0"
+valign = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player1"]
+margin_left = 230.0
+margin_right = 270.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "X"
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player1"]
+margin_left = 274.0
+margin_right = 314.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Player2" type="HBoxContainer" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer"]
+margin_top = 44.0
+margin_right = 396.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+alignment = 1
+
+[node name="Name" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player2"]
+margin_left = 82.0
+margin_right = 182.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "Player2"
+align = 1
+valign = 1
+
+[node name="Wins" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player2"]
+margin_left = 186.0
+margin_right = 226.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "0"
+valign = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player2"]
+margin_left = 230.0
+margin_right = 270.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "X"
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player2"]
+margin_left = 274.0
+margin_right = 314.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Player3" type="HBoxContainer" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer"]
+margin_top = 88.0
+margin_right = 396.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+alignment = 1
+
+[node name="Name" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player3"]
+margin_left = 82.0
+margin_right = 182.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "Player3"
+align = 1
+valign = 1
+
+[node name="Wins" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player3"]
+margin_left = 186.0
+margin_right = 226.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "0"
+valign = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player3"]
+margin_left = 230.0
+margin_right = 270.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "X"
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player3"]
+margin_left = 274.0
+margin_right = 314.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Player4" type="HBoxContainer" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer"]
+margin_top = 132.0
+margin_right = 396.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+alignment = 1
+
+[node name="Name" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player4"]
+margin_left = 82.0
+margin_right = 182.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+text = "Player4"
+align = 1
+valign = 1
+
+[node name="Wins" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player4"]
+margin_left = 186.0
+margin_right = 226.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "0"
+valign = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player4"]
+margin_left = 230.0
+margin_right = 270.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+text = "X"
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/ScoreScreen/VBoxContainer/Player4"]
+margin_left = 274.0
+margin_right = 314.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/ScoreScreen"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 6
+
+[node name="RetryMenu" type="Control" parent="CanvasLayer/GUI"]
+visible = false
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/RetryMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI/RetryMenu/VBoxContainer"]
+modulate = Color( 1, 0.733333, 0, 1 )
+margin_right = 396.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 16 )
+text = "FAIL"
+align = 1
+
+[node name="Retry" type="Button" parent="CanvasLayer/GUI/RetryMenu/VBoxContainer"]
+margin_top = 78.0
+margin_right = 396.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+custom_fonts/font = SubResource( 17 )
+text = "Retry"
+
+[node name="Quit" type="Button" parent="CanvasLayer/GUI/RetryMenu/VBoxContainer"]
+margin_top = 122.0
+margin_right = 396.0
+margin_bottom = 162.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+custom_fonts/font = SubResource( 18 )
+text = "Quit"
+
+[node name="RewardScreen" type="Control" parent="CanvasLayer/GUI"]
+visible = false
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GUI/RewardScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 6
+
+[node name="ForceWin" type="Control" parent="CanvasLayer/GUI"]
+visible = false
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+
+[node name="Button" type="Button" parent="CanvasLayer/GUI/ForceWin"]
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 0.6
+theme = ExtResource( 7 )
+text = "Press X to force win"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer/GUI"]
+pause_mode = 2
+visible = false
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer"]
+margin_right = 436.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Resume"
+
+[node name="PauseRetry" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer"]
+margin_top = 44.0
+margin_right = 436.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Retry"
+
+[node name="PauseQuit" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer"]
+margin_top = 88.0
+margin_right = 436.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Quit"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/GUI/PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer2"]
+margin_right = 436.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 19 )
+text = "Resetting will reset current score. Continue?"
+align = 1
+valign = 1
+
+[node name="PauseBack" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer2"]
+margin_top = 31.0
+margin_right = 436.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Back"
+
+[node name="Retry" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer2"]
+margin_top = 75.0
+margin_right = 436.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Retry"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/GUI/PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer3"]
+margin_right = 436.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 19 )
+text = "Are you sure you want to quit?"
+align = 1
+valign = 1
+
+[node name="Nope" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer3"]
+margin_top = 31.0
+margin_right = 436.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "No"
+
+[node name="Yep" type="Button" parent="CanvasLayer/GUI/PauseMenu/VBoxContainer3"]
+margin_top = 75.0
+margin_right = 436.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 7 )
+text = "Yes"
+
+[connection signal="timeout" from="BallTimer" to="." method="_on_BallTimer_timeout"]
+[connection signal="timeout" from="AutoWin" to="." method="_on_AutoWin_timeout"]
+[connection signal="timeout" from="RestartGame" to="." method="_on_RestartGame_timeout"]
+[connection signal="timeout" from="ReturnToMainMenu" to="." method="_on_ReturnToMainMenu_timeout"]
+[connection signal="pressed" from="CanvasLayer/GUI/RetryMenu/VBoxContainer/Retry" to="CanvasLayer" method="_on_Retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/RetryMenu/VBoxContainer/Quit" to="CanvasLayer" method="_on_Quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/ForceWin/Button" to="CanvasLayer" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer/Resume" to="CanvasLayer" method="_on_Resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer/PauseRetry" to="CanvasLayer" method="_on_PauseRetry_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer/PauseQuit" to="CanvasLayer" method="_on_PauseQuit_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer2/PauseBack" to="CanvasLayer" method="_on_PauseBack_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer2/Retry" to="CanvasLayer" method="_on_Retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer3/Nope" to="CanvasLayer" method="_on_Nope_pressed"]
+[connection signal="pressed" from="CanvasLayer/GUI/PauseMenu/VBoxContainer3/Yep" to="CanvasLayer" method="_on_Yep_pressed"]

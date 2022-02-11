@@ -1,0 +1,822 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/greyscale_images/effect_4.png" type="Texture" id=1]
+[ext_resource path="res://levels/crash_ball/arena.tscn" type="PackedScene" id=2]
+[ext_resource path="res://main_menu/MainMenuGame.gd" type="Script" id=3]
+[ext_resource path="res://assets/rewards/trohpy_locked2.png" type="Texture" id=4]
+[ext_resource path="res://main_menu/MainMenuButtons.gd" type="Script" id=5]
+[ext_resource path="res://main_menu/LevelSelect.gd" type="Script" id=6]
+[ext_resource path="res://main_menu/OptionsMenu.gd" type="Script" id=7]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSerif-Regular.otf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSerif-Semibold.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://main_menu/SP_mode.gd" type="Script" id=10]
+[ext_resource path="res://main_menu/MainMenu.tres" type="Theme" id=11]
+
+[sub_resource type="DynamicFont" id=13]
+size = 81
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=12]
+font_data = ExtResource( 8 )
+
+[sub_resource type="ViewportTexture" id=11]
+viewport_path = NodePath("ViewportContainer/Viewport")
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.329193, 0.608696, 1 )
+colors = PoolColorArray( 0.160784, 1, 0, 1, 0, 0, 0, 1, 0, 0.522461, 1, 1, 0, 1, 0.132813, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0.945454 ), 0.0, 0.343123, 0, 0, Vector2( 1, 0.518182 ), -1.73706, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 3 )
+
+[node name="Main" type="Node"]
+
+[node name="MainMenu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect"]
+anchor_top = 0.055
+anchor_right = 0.5
+anchor_bottom = 0.092
+rect_min_size = Vector2( 435, 50 )
+custom_fonts/font = SubResource( 13 )
+text = "Ball Bash"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="MainMenu/ColorRect"]
+anchor_left = 0.175
+anchor_top = 0.138
+anchor_right = 0.285
+anchor_bottom = 0.147
+text = "Closed alpha test 2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButtons" type="Control" parent="MainMenu/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 435, 600 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons"]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.4
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer"]
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 435, 40 )
+focus_neighbour_top = NodePath("../Quit")
+focus_neighbour_bottom = NodePath("../Online")
+theme = ExtResource( 11 )
+text = "Play"
+
+[node name="Online" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer"]
+margin_top = 44.0
+margin_right = 594.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 200, 50 )
+focus_neighbour_top = NodePath("../Play")
+focus_neighbour_bottom = NodePath("../Options")
+theme = ExtResource( 11 )
+text = "Online"
+
+[node name="Options" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer"]
+margin_top = 98.0
+margin_right = 594.0
+margin_bottom = 148.0
+rect_min_size = Vector2( 200, 50 )
+focus_neighbour_top = NodePath("../Online")
+focus_neighbour_bottom = NodePath("../Quit")
+theme = ExtResource( 11 )
+text = "Options"
+
+[node name="Quit" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer"]
+margin_top = 152.0
+margin_right = 594.0
+margin_bottom = 202.0
+rect_min_size = Vector2( 200, 50 )
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Play")
+theme = ExtResource( 11 )
+text = "Quit"
+
+[node name="Mode" type="Control" parent="MainMenu/ColorRect/MainMenuButtons"]
+visible = false
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.4
+anchor_bottom = 1.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/Mode"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Single" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer"]
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 11 )
+text = "Single player"
+
+[node name="Custom" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer"]
+margin_top = 44.0
+margin_right = 594.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 11 )
+text = "Custom game"
+
+[node name="Back" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer"]
+margin_top = 88.0
+margin_right = 594.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 11 )
+text = "Back"
+
+[node name="LevelSelect" type="Control" parent="MainMenu/ColorRect/MainMenuButtons/Mode"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect"]
+margin_top = -43.0
+margin_bottom = -2.59201
+rect_min_size = Vector2( 217, 40 )
+theme = ExtResource( 11 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelList" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect"]
+anchor_right = 0.394
+anchor_bottom = 0.202
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/LevelList"]
+margin_right = 234.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = SubResource( 12 )
+text = "Ballistix"
+valign = 1
+
+[node name="Label2" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/LevelList"]
+margin_top = 44.0
+margin_right = 234.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = SubResource( 12 )
+text = "Sticky Balls"
+valign = 1
+
+[node name="Label3" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/LevelList"]
+margin_top = 88.0
+margin_right = 234.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = SubResource( 12 )
+text = "Spin Balls"
+valign = 1
+
+[node name="Label4" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/LevelList"]
+margin_top = 132.0
+margin_right = 234.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = SubResource( 12 )
+text = "Sky Balls"
+valign = 1
+
+[node name="GridContainer" type="GridContainer" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect"]
+anchor_left = 0.4
+anchor_right = 0.4
+margin_left = 0.399994
+margin_right = 211.4
+margin_bottom = 175.0
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/0"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 44.0
+margin_right = 84.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/1"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 88.0
+margin_right = 128.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/2"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 132.0
+margin_right = 172.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/3"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_top = 44.0
+margin_right = 40.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/4"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 44.0
+margin_top = 44.0
+margin_right = 84.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/5"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 88.0
+margin_top = 44.0
+margin_right = 128.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/6"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 132.0
+margin_top = 44.0
+margin_right = 172.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/7"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="8" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_top = 88.0
+margin_right = 40.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/8"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="9" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 44.0
+margin_top = 88.0
+margin_right = 84.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/9"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 88.0
+margin_top = 88.0
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/10"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="11" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 132.0
+margin_top = 88.0
+margin_right = 172.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/11"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="12" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_top = 132.0
+margin_right = 40.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/12"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="13" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 44.0
+margin_top = 132.0
+margin_right = 84.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/13"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="14" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 88.0
+margin_top = 132.0
+margin_right = 128.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/14"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="15" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer"]
+margin_left = 132.0
+margin_top = 132.0
+margin_right = 172.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 40, 40 )
+theme = ExtResource( 11 )
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/GridContainer/15"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsMenu" type="Control" parent="MainMenu/ColorRect/MainMenuButtons"]
+visible = false
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.4
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Display_Mode" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_right = 594.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Display_Mode"]
+margin_right = 494.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 150, 40 )
+size_flags_horizontal = 3
+text = "Display mode"
+
+[node name="dp_mode" type="OptionButton" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Display_Mode"]
+margin_left = 498.0
+margin_right = 594.0
+margin_bottom = 40.0
+text = "Windowed"
+items = [ "Windowed", null, false, 0, null, "Fullscreen", null, false, 1, null, "Borderless fullscreen ", null, false, 2, null ]
+selected = 0
+
+[node name="Vsync" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 44.0
+margin_right = 594.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Vsync"]
+margin_right = 566.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "VSync"
+valign = 1
+
+[node name="vsync" type="CheckBox" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Vsync"]
+margin_left = 570.0
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 24, 40 )
+
+[node name="MaxFps" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 88.0
+margin_right = 594.0
+margin_bottom = 128.0
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/MaxFps"]
+margin_right = 328.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Max fps"
+valign = 1
+
+[node name="fps_box" type="LineEdit" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/MaxFps"]
+margin_left = 332.0
+margin_right = 390.0
+margin_bottom = 40.0
+align = 1
+
+[node name="fps_slider" type="HSlider" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/MaxFps"]
+margin_left = 394.0
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+min_value = 24.0
+max_value = 250.0
+value = 144.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="bloom" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 132.0
+margin_right = 594.0
+margin_bottom = 172.0
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/bloom"]
+margin_right = 566.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Enable bloom"
+valign = 1
+
+[node name="bloom" type="CheckBox" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/bloom"]
+margin_left = 570.0
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 24, 40 )
+
+[node name="aa" type="Control" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 176.0
+margin_right = 594.0
+margin_bottom = 176.0
+
+[node name="fov" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 180.0
+margin_right = 594.0
+margin_bottom = 220.0
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov"]
+margin_right = 328.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Field of view"
+valign = 1
+
+[node name="fov_box" type="LineEdit" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov"]
+margin_left = 332.0
+margin_right = 390.0
+margin_bottom = 40.0
+align = 1
+
+[node name="fov_slider" type="HSlider" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov"]
+margin_left = 394.0
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+min_value = 30.0
+max_value = 150.0
+value = 144.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="show_fps" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 224.0
+margin_right = 594.0
+margin_bottom = 264.0
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/show_fps"]
+margin_right = 566.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Show fps"
+valign = 1
+
+[node name="showfps" type="CheckBox" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/show_fps"]
+margin_left = 570.0
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 24, 40 )
+
+[node name="Buttons" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 268.0
+margin_right = 594.0
+margin_bottom = 308.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveExit" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Buttons"]
+margin_right = 90.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 90, 40 )
+text = "Apply & Exit"
+
+[node name="ideas_node" type="Control" parent="MainMenu"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/ideas_node"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainMenu/ideas_node/VBoxContainer"]
+margin_right = 445.0
+margin_bottom = 14.0
+text = "particlet päälle ja zoom kenttään ja sitte zuum ulos ennen pelin alkua"
+
+[node name="Label3" type="Label" parent="MainMenu/ideas_node/VBoxContainer"]
+margin_top = 18.0
+margin_right = 445.0
+margin_bottom = 32.0
+text = "trophy/score screen oma viewport"
+
+[node name="Label4" type="Label" parent="MainMenu/ideas_node/VBoxContainer"]
+margin_top = 36.0
+margin_right = 445.0
+margin_bottom = 50.0
+text = "bloom ei vaihu preview"
+
+[node name="Label5" type="Label" parent="MainMenu/ideas_node/VBoxContainer"]
+margin_top = 54.0
+margin_right = 445.0
+margin_bottom = 68.0
+text = "engine.target_fps = 0 = unlimited"
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 169.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 990, 556 )
+handle_input_locally = false
+msaa = 2
+render_target_update_mode = 3
+
+[node name="MenuGame" type="Spatial" parent="ViewportContainer/Viewport"]
+script = ExtResource( 3 )
+
+[node name="MenuArena" parent="ViewportContainer/Viewport/MenuGame" instance=ExtResource( 2 )]
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/MenuGame"]
+transform = Transform( 1, 0, 0, 0, 0.394247, 0.919005, 0, -0.919005, 0.394247, 0, 11.6331, 4.47963 )
+current = true
+fov = 60.5
+
+[node name="BallTimer" type="Timer" parent="ViewportContainer/Viewport/MenuGame"]
+autostart = true
+
+[node name="Players" type="Spatial" parent="ViewportContainer/Viewport/MenuGame"]
+
+[node name="Balls" type="Spatial" parent="ViewportContainer/Viewport/MenuGame"]
+
+[node name="SettingsCamera" type="Camera" parent="ViewportContainer/Viewport/MenuGame"]
+transform = Transform( 1, 0, 0, 0, 0.490387, 0.871505, 0, -0.871505, 0.490387, 0, 5.60978, 4.42445 )
+fov = 65.0
+
+[node name="ViewportTexture" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1451, 448 )
+texture = SubResource( 11 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 1436, 470 )
+process_material = SubResource( 6 )
+texture = ExtResource( 1 )
+
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Play" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Play_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Options" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Options_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Quit" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Quit_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer/Single" to="MainMenu/ColorRect/MainMenuButtons/Mode" method="_on_Single_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer/Back" to="MainMenu/ColorRect/MainMenuButtons/Mode" method="_on_Back_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect/Back" to="MainMenu/ColorRect/MainMenuButtons/Mode" method="_on_Back_pressed"]
+[connection signal="visibility_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" to="ViewportContainer/Viewport/MenuGame" method="_on_OptionsMenu_visibility_changed"]
+[connection signal="item_selected" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Display_Mode/dp_mode" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_dp_mode_item_selected"]
+[connection signal="toggled" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Vsync/vsync" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_vsync_toggled"]
+[connection signal="text_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/MaxFps/fps_box" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_fps_box_text_changed"]
+[connection signal="value_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/MaxFps/fps_slider" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_fps_slider_value_changed"]
+[connection signal="toggled" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/bloom/bloom" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_bloom_toggled"]
+[connection signal="text_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_box" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_fov_box_text_changed"]
+[connection signal="text_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_box" to="ViewportContainer/Viewport/MenuGame" method="_on_fov_box_text_changed"]
+[connection signal="value_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_slider" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_fov_slider_value_changed"]
+[connection signal="value_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_slider" to="ViewportContainer/Viewport/MenuGame" method="_on_fov_slider_value_changed"]
+[connection signal="toggled" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/show_fps/showfps" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_showfps_toggled"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Buttons/SaveExit" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_SaveExit_pressed"]
+[connection signal="timeout" from="ViewportContainer/Viewport/MenuGame/BallTimer" to="ViewportContainer/Viewport/MenuGame" method="_on_BallTimer_timeout"]

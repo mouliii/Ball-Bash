@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/greyscale_images/ring.png" type="Texture" id=1]
+[ext_resource path="res://carts/abilities/ForcePush.gd" type="Script" id=2]
+
+[sub_resource type="CylinderShape" id=16]
+radius = 1.8
+height = 0.763237
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0.465839, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.975155, 0.975155, 0.975155, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 18 )
+
+[sub_resource type="Curve" id=19]
+_data = [ Vector2( 0.201087, 0 ), 0.0, 0.0525523, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+width = 1024
+curve = SubResource( 19 )
+
+[sub_resource type="ParticlesMaterial" id=20]
+gravity = Vector3( 0, 0, 0 )
+scale = 3.9
+scale_random = 0.18
+scale_curve = SubResource( 11 )
+color = Color( 0.0431373, 0.278431, 0.992157, 1 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="QuadMesh" id=21]
+
+[node name="ForcePush" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="ForcePushArea" type="Area" parent="."]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="ForcePushArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.208, 0 )
+shape = SubResource( 16 )
+disabled = true
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.187605, 0.147693 )
+material_override = SubResource( 17 )
+cast_shadow = 0
+emitting = false
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 20 )
+draw_pass_1 = SubResource( 21 )
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="CPU_forceReaction" type="Timer" parent="."]
+one_shot = true
+
+[node name="CPU_force_internalCD" type="Timer" parent="."]
+one_shot = true
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.195017, -0.192063 )
+
+[connection signal="body_entered" from="ForcePushArea" to="." method="_on_ForcePushArea_body_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]
+[connection signal="timeout" from="CPU_forceReaction" to="." method="_on_CPU_forceReaction_timeout"]
+[connection signal="timeout" from="CPU_force_internalCD" to="." method="_on_CPU_force_internalCD_timeout"]
