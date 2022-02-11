@@ -148,9 +148,9 @@ func SetupGame():
 			p.health = rules["Npc"].Hp
 			p.ShowSkin()
 		$Players.get_child(0).health = rules["Player"].Hp
-		gui.SetScore()
 		for b in $Balls.get_children():
 			b.queue_free()
+	gui.SetupGui()
 	$CanvasLayer/AnimationTree.get("parameters/playback").start("3")
 
 func StartGameCountdown(_pitaa_olla_joku_string_koska_godot:String)->void:
@@ -204,7 +204,6 @@ func GetRewardName()->String:
 
 func RandomWinner()->void:
 	var winner:int = randi() % 3 + 1
-	gui.SetScore()
 	var winnerPlr:KinematicBody = $Players.get_child(winner)
 	TestWin(winnerPlr)
 	# animaatio
@@ -219,7 +218,9 @@ func TestWin(winner:KinematicBody)->void:
 		arena.DisableBlockers()
 		arena.DisableScoringLines()
 		$CanvasLayer/GUI/ScoreScreen.hide()
+		$CanvasLayer/GUI/ForceWin.hide()
 		score[winner.position_id] += 1
+		gui.SetScore()
 		# cup win
 		var cupWinner:KinematicBody = gameTests.GetCupWinner(score, rules["WinCondition"].Wins)
 		if cupWinner:
@@ -231,7 +232,6 @@ func TestWin(winner:KinematicBody)->void:
 			else:
 				GameLost()
 		else:
-			gui.SetScore()
 			$CanvasLayer/GUI/ScoreScreen.show()
 			$RestartGame.start(gui.menuOpenTime)
 	# win animaatio
