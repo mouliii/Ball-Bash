@@ -7,6 +7,9 @@ onready var arena = get_node("MenuArena")
 onready var ball_template = preload("res://assets/balls/Ball.tscn")
 onready var character_template = preload("res://carts/Player.tscn")
 onready var ballTimer = get_node("BallTimer")
+#ballerot
+onready var mmBalls = get_node("DrawMeshes/Balls")
+onready var ballContainer = get_node("Balls")
 
 var ballSpawnTime:float = 1.0
 var maxActiveBalls:int = 4
@@ -19,6 +22,8 @@ func _ready():
 func _process(delta):
 	camera.look_at(Vector3(0,0,0), Vector3.UP)
 	camera.translate(Vector3.RIGHT * camSpeed * delta)
+	DrawBalls()
+	DrawPlayers()
 
 func StartGame():
 	for blocker in arena.get_node("Goal_barriers").get_children():
@@ -80,6 +85,30 @@ func _on_BallTimer_timeout():
 func HealthChanged(_player:int, _damage:int):
 	# ihan vaan koska signalia lentää kun painaa quit game
 	pass
+
+func DrawBalls()->void:
+	var nChilds:int = ballContainer.get_child_count()
+	for i in range(0, 4):
+		if i >= nChilds:
+			var ZERO_TRANSFORM = Transform.IDENTITY.scaled(Vector3.ZERO)
+			mmBalls.multimesh.set_instance_transform(i, ZERO_TRANSFORM)
+		else:
+			var ballTransform:Transform = ballContainer.get_child(i).global_transform
+			mmBalls.multimesh.set_instance_transform(i, ballTransform)
+
+func DrawPlayers()->void:
+	var cartMM:MultiMesh = get_node("DrawMeshes/Players/Carts").multimesh
+	var indMM:MultiMesh = get_node("DrawMeshes/Players/Indicator").multimesh
+	for i in range(0, get_node("Players").get_child_count()):
+		var player = get_node("Players").get_child(i)
+		if player.health > 0:
+			cartMM.set_instance_transform(i, player.get_node("Mesh/Cart").global_transform)
+			indMM.set_instance_transform(i, player.get_node("Mesh/Indicator").global_transform)
+			indMM.set_instance_color(i, player.indicatorColor)
+		else:
+			var ZERO_TRANSFORM = Transform.IDENTITY.scaled(Vector3.ZERO)
+			cartMM.set_instance_transform(i, ZERO_TRANSFORM)
+			indMM.set_instance_transform(i, ZERO_TRANSFORM)
 
 
 func _on_OptionsMenu_visibility_changed():

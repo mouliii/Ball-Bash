@@ -30,3 +30,8 @@ func _on_Quit_pressed():
 func ShowMainMenu()->void:
 	container.show()
 	get_node("MainMenuContainer/Play").grab_focus()
+
+
+func _on_Online_pressed():
+	container.hide()
+	get_node("OnlineMenu").show()

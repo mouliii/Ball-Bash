@@ -10,8 +10,32 @@ func _ready():
 		node.get_child(b).connect("pressed", self, "_on_button_pressed", [node.get_child(b)])
 		node.get_child(b).connect("mouse_entered", self, "_on_mouse_enter", [node.get_child(b)])
 
+func UpdateTutorialText(n:int):
+	var text:Label = $level_info
+	print(n)
+	match n:
+		0:
+			text.text = "Press [A] and [D] to move. Press [W] to use forcepush ability. First player to win three times wins!"
+		1:
+			text.text = "Defend your goal with the odds against you"
+		2:
+			text.text = "You must win without forcepush ability"
+		3:
+			text.text = "Ultimate test. Win three times in a row"
+		#levl 2
+		4:
+			text.text = "Press [W] to use forcepush ability. Press [S] to use magnet ability. First player to win three times wins!"
+		5:
+			text.text = "Defend your goal with the odds against you"
+		6:
+			text.text = "Your opponents will have intermitten shields"
+		7:
+			text.text = "Battle against champions of arena. Win three times in a row"
+		
+
 func _on_mouse_enter(button)->void:
 	button.grab_focus()
+	UpdateTutorialText(int(button.name))
 
 func _on_button_pressed(button)->void:
 	var coords:Vector2 = Vector2()

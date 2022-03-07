@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://assets/greyscale_images/effect_4.png" type="Texture" id=1]
 [ext_resource path="res://levels/crash_ball/arena.tscn" type="PackedScene" id=2]
@@ -11,6 +11,12 @@
 [ext_resource path="res://assets/fonts/libertinus/LibertinusSerif-Semibold.otf" type="DynamicFontData" id=9]
 [ext_resource path="res://main_menu/SP_mode.gd" type="Script" id=10]
 [ext_resource path="res://main_menu/MainMenu.tres" type="Theme" id=11]
+[ext_resource path="res://levels/crash_ball/PlayersMM.gd" type="Script" id=12]
+[ext_resource path="res://carts/models/cart_model.tres" type="ArrayMesh" id=13]
+[ext_resource path="res://assets/balls/metal_ball.tres" type="SphereMesh" id=14]
+[ext_resource path="res://carts/models/indicator.tres" type="CubeMesh" id=15]
+[ext_resource path="res://main_menu/OnlineMenu.gd" type="Script" id=16]
+[ext_resource path="res://assets/fonts/libertinus/LibertinusSans-Regular.otf" type="DynamicFontData" id=17]
 
 [sub_resource type="DynamicFont" id=13]
 size = 81
@@ -18,6 +24,49 @@ font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=12]
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=20]
+size = 27
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 26
+font_data = ExtResource( 17 )
+
+[sub_resource type="Gradient" id=18]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
+width = 40
+
+[sub_resource type="MultiMesh" id=14]
+color_format = 1
+transform_format = 1
+custom_data_format = 1
+instance_count = 4
+mesh = ExtResource( 13 )
+transform_array = PoolVector3Array( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.226, 4.302, -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.226, -4.302, -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.302, 0.226, 0, -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.302, 0.226, 0 )
+color_array = PoolColorArray( 0.184314, 0.513726, 0, 1, 0.184314, 0.513726, 0, 1, 0.184314, 0.513726, 0, 1, 0.184314, 0.513726, 0, 1 )
+custom_data_array = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+
+[sub_resource type="MultiMesh" id=15]
+color_format = 1
+transform_format = 1
+custom_data_format = 1
+instance_count = 4
+mesh = ExtResource( 15 )
+transform_array = PoolVector3Array( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365, 3.796, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365, -3.796, 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.796, 0.365, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.796, 0.365, 0 )
+color_array = PoolColorArray( 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1 )
+custom_data_array = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+
+[sub_resource type="MultiMesh" id=16]
+color_format = 1
+transform_format = 1
+instance_count = 4
+mesh = ExtResource( 14 )
+transform_array = PoolVector3Array( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+color_array = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 )
 
 [sub_resource type="ViewportTexture" id=11]
 viewport_path = NodePath("ViewportContainer/Viewport")
@@ -83,7 +132,7 @@ anchor_left = 0.175
 anchor_top = 0.138
 anchor_right = 0.285
 anchor_bottom = 0.147
-text = "Closed alpha test 2"
+text = "Beta1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -539,6 +588,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="level_info" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/Mode/LevelSelect"]
+margin_top = 198.0
+margin_right = 407.0
+margin_bottom = 230.0
+custom_fonts/font = SubResource( 20 )
+autowrap = true
+
 [node name="OptionsMenu" type="Control" parent="MainMenu/ColorRect/MainMenuButtons"]
 visible = false
 anchor_left = 0.1
@@ -701,10 +757,30 @@ margin_right = 594.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 40 )
 
-[node name="Buttons" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
 margin_top = 268.0
 margin_right = 594.0
-margin_bottom = 308.0
+margin_bottom = 288.0
+
+[node name="color" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/HBoxContainer"]
+margin_top = 3.0
+margin_right = 490.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Player cart color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/HBoxContainer"]
+margin_left = 494.0
+margin_right = 594.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 0 )
+color = Color( 0.329412, 0.960784, 0.0745098, 1 )
+edit_alpha = false
+
+[node name="Buttons" type="HBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options"]
+margin_top = 292.0
+margin_right = 594.0
+margin_bottom = 332.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -714,6 +790,175 @@ margin_right = 90.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 90, 40 )
 text = "Apply & Exit"
+
+[node name="OnlineMenu" type="Control" parent="MainMenu/ColorRect/MainMenuButtons"]
+visible = false
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.4
+anchor_bottom = 1.0
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/VBoxContainer"]
+margin_right = 594.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 11 )
+text = "Host"
+
+[node name="Join" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/VBoxContainer"]
+margin_top = 44.0
+margin_right = 594.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 11 )
+text = "Join"
+
+[node name="Host" type="Control" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Control" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join"]
+anchor_left = 0.392
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_right = 361.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 17 )
+align = 1
+
+[node name="GridContainer" type="GridContainer" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_top = 35.0
+margin_right = 361.0
+margin_bottom = 181.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_right = 107.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Name"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_left = 111.0
+margin_right = 361.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 40 )
+align = 1
+
+[node name="Label4" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_top = 44.0
+margin_right = 107.0
+margin_bottom = 58.0
+text = "Color"
+
+[node name="TextButton" type="TextureButton" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_left = 111.0
+margin_top = 44.0
+margin_right = 361.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 40, 0 )
+disabled = true
+texture_normal = SubResource( 19 )
+expand = true
+
+[node name="Label2" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_top = 62.0
+margin_right = 107.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Ip"
+valign = 1
+
+[node name="LineEdit2" type="LineEdit" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_left = 111.0
+margin_top = 62.0
+margin_right = 361.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 250, 40 )
+align = 1
+placeholder_text = "127.0.0.1"
+
+[node name="Label3" type="Label" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_top = 106.0
+margin_right = 107.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Port"
+valign = 1
+
+[node name="LineEdit3" type="LineEdit" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/GridContainer"]
+margin_left = 111.0
+margin_top = 106.0
+margin_right = 361.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 250, 40 )
+align = 1
+placeholder_text = "27015"
+
+[node name="HostGame" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_top = 185.0
+margin_right = 361.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 35 )
+text = "Host game"
+
+[node name="Connect" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_top = 224.0
+margin_right = 361.0
+margin_bottom = 259.0
+rect_min_size = Vector2( 0, 35 )
+text = "Join game"
+
+[node name="Button" type="Button" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_top = 263.0
+margin_right = 361.0
+margin_bottom = 293.0
+rect_min_size = Vector2( 0, 30 )
+text = "Back to main nmenu"
+
+[node name="ColorPicker" type="ColorPicker" parent="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer"]
+margin_left = 4.0
+margin_top = 301.0
+margin_right = 365.0
+margin_bottom = 713.0
+edit_alpha = false
+presets_enabled = false
+presets_visible = false
 
 [node name="ideas_node" type="Control" parent="MainMenu"]
 visible = false
@@ -789,6 +1034,28 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 0.490387, 0.871505, 0, -0.871505, 0.490387, 0, 5.60978, 4.42445 )
 fov = 65.0
 
+[node name="DrawMeshes" type="Spatial" parent="ViewportContainer/Viewport/MenuGame"]
+
+[node name="Players" type="Spatial" parent="ViewportContainer/Viewport/MenuGame/DrawMeshes"]
+script = ExtResource( 12 )
+
+[node name="Carts" type="MultiMeshInstance" parent="ViewportContainer/Viewport/MenuGame/DrawMeshes/Players"]
+multimesh = SubResource( 14 )
+
+[node name="Indicator" type="MultiMeshInstance" parent="ViewportContainer/Viewport/MenuGame/DrawMeshes/Players"]
+multimesh = SubResource( 15 )
+
+[node name="Character" type="MultiMeshInstance" parent="ViewportContainer/Viewport/MenuGame/DrawMeshes/Players"]
+
+[node name="Balls" type="MultiMeshInstance" parent="ViewportContainer/Viewport/MenuGame/DrawMeshes"]
+multimesh = SubResource( 16 )
+
+[node name="SpringArm" type="Spatial" parent="ViewportContainer/Viewport/MenuGame"]
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/MenuGame/SpringArm"]
+transform = Transform( 1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 5.52393, 2.8324 )
+fov = 90.0
+
 [node name="ViewportTexture" type="Sprite" parent="."]
 visible = false
 position = Vector2( 1451, 448 )
@@ -802,6 +1069,7 @@ process_material = SubResource( 6 )
 texture = ExtResource( 1 )
 
 [connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Play" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Play_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Online" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Online_pressed"]
 [connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Options" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Options_pressed"]
 [connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/MainMenuContainer/Quit" to="MainMenu/ColorRect/MainMenuButtons" method="_on_Quit_pressed"]
 [connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/Mode/VBoxContainer/Single" to="MainMenu/ColorRect/MainMenuButtons/Mode" method="_on_Single_pressed"]
@@ -818,5 +1086,12 @@ texture = ExtResource( 1 )
 [connection signal="value_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_slider" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_fov_slider_value_changed"]
 [connection signal="value_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/fov/fov_slider" to="ViewportContainer/Viewport/MenuGame" method="_on_fov_slider_value_changed"]
 [connection signal="toggled" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/show_fps/showfps" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_showfps_toggled"]
+[connection signal="color_changed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/HBoxContainer/ColorPickerButton" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_ColorPickerButton_color_changed"]
 [connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OptionsMenu/Options/Buttons/SaveExit" to="MainMenu/ColorRect/MainMenuButtons/OptionsMenu" method="_on_SaveExit_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/VBoxContainer/Host" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_Host_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/VBoxContainer/Join" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_Join_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/HostGame" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_HostGame_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/Connect" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_Connect_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/Button" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_Button_pressed"]
+[connection signal="color_changed" from="MainMenu/ColorRect/MainMenuButtons/OnlineMenu/Join/VBoxContainer/ColorPicker" to="MainMenu/ColorRect/MainMenuButtons/OnlineMenu" method="_on_ColorPicker_color_changed"]
 [connection signal="timeout" from="ViewportContainer/Viewport/MenuGame/BallTimer" to="ViewportContainer/Viewport/MenuGame" method="_on_BallTimer_timeout"]

@@ -50,3 +50,8 @@ func _on_Test_pressed():
 func _on_fov_box_text_changed(new_text):
 	Config.SaveSetting("gameplay", "fov", float(new_text))
 
+
+func _on_ColorPickerButton_color_changed(color):
+	var playermm = get_node("/root/Main/ViewportContainer/Viewport/MenuGame/DrawMeshes/Players/Carts")
+	playermm.multimesh.set_instance_color(0, color)
+	Config.SaveSetting("gameplay", "cart_color", color)
