@@ -1,6 +1,7 @@
 extends KinematicBody
 
 signal goal(player, damage)
+signal onlineSelfDestruct(who)
 
 var minSpeed := 200.0
 var maxSpeed := 900.0
@@ -62,6 +63,7 @@ func _on_Area_area_entered(area):
 	$RemoveBall.start(0.5)
 
 func _on_Timer_timeout():
+	emit_signal("onlineSelfDestruct", self)
 	remove_from_group("Balls")
 	queue_free()
 

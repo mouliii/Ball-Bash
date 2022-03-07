@@ -39,11 +39,18 @@ func _on_RogueBallCatcher_body_exited(body):
 				emit_signal("ballDropped")
 
 func SetLineColor(color:Color, player:int)->void:
+	$GoalLineMM.multimesh.set_instance_color(player, color)
+
+func SetAllLines(color:Color)->void:
+	for i in range(0,4):
+		$GoalLineMM.multimesh.set_instance_color(i, color)
+
+func SetLineColor_old(color:Color, player:int)->void:
 	var mat:Material = get_node("Mesh/arena").get_node("line" + str(player)).mesh.surface_get_material(0)
 	mat.albedo_color = color
 	get_node("Mesh/arena").get_node("line" + str(player)).mesh.surface_set_material(0, mat)
-
-func SetAllLines(color:Color)->void:
+#
+func SetAllLines_old(color:Color)->void:
 	for i in range(4):
 		var mat:Material = get_node("Mesh/arena").get_node("line" + str(i)).mesh.surface_get_material(0)
 		mat.albedo_color = color

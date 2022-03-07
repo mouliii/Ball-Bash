@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 signal restartGame()
 signal randomWinner()
@@ -22,10 +22,6 @@ func SetupGui() -> void:
 	for i in range(0,4):
 		var label:Label = playerHealth.get_node(str(i+1))
 		label.text = str(get_parent().get_node("Players").get_child(i).health)
-	var colors:Array = get_parent().GetPlayerColors()
-	for i in range(0,4):
-		var node:ColorRect = get_node("GUI/PlayerInfo/ColorRect" + str(i+1))
-		node.color = colors[i]
 
 func UpdateBallCount() -> void:
 	$GUI/Ball_counter.text = "balls: " + str(get_parent().get_node("Balls").get_child_count())

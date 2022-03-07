@@ -1,4 +1,4 @@
-extends Spatial
+extends Node
 
 
 export var players:NodePath

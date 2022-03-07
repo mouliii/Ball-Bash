@@ -78,6 +78,10 @@ func DisableAll():
 	$AreaMagnet/CollisionShape.disabled = true
 	$AnimationPlayer.stop()
 	$HoldTimer.stop()
+	if !attachedBalls.empty():
+		ShootBalls()
+	attachedBalls.clear()
+	isActive = false
 
 
 func _on_CPU_ReleaseTimer_timeout():

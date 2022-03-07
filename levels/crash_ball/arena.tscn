@@ -1,20 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://levels/crash_ball/gltf/new_arena/arena.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/crash_ball/GoalLineMM.gd" type="Script" id=2]
 [ext_resource path="res://levels/crash_ball/death_line.tres" type="CubeMesh" id=3]
+[ext_resource path="res://levels/crash_ball/new_goal_line_mesh.tres" type="QuadMesh" id=4]
 [ext_resource path="res://levels/crash_ball/arena.gd" type="Script" id=6]
 
 [sub_resource type="CylinderShape" id=8]
 radius = 0.794599
 height = 1.16376
 
-[sub_resource type="Environment" id=6]
+[sub_resource type="Environment" id=15]
 background_mode = 1
-ambient_light_energy = 0.0
-ambient_light_sky_contribution = 0.0
-tonemap_mode = 3
-ssao_enabled = true
-glow_enabled = true
 
 [sub_resource type="GIProbeData" id=7]
 bounds = AABB( -5.51842, -2.84551, -5.17123, 11.0368, 5.69101, 10.3425 )
@@ -34,6 +31,16 @@ extents = Vector3( 12.8638, 13.0823, 10.3154 )
 
 [sub_resource type="BoxShape" id=13]
 extents = Vector3( 5, 0.1, 5 )
+
+[sub_resource type="MultiMesh" id=14]
+color_format = 1
+transform_format = 1
+custom_data_format = 1
+instance_count = 4
+mesh = ExtResource( 4 )
+transform_array = PoolVector3Array( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 4.0905, 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -4.0905, -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, -4.0905, 0, 0, -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 4.0905, 0, 0 )
+color_array = PoolColorArray( 0, 0.603922, 1, 1, 0, 0.603922, 1, 1, 0, 0.603922, 1, 1, 0, 0.603922, 1, 1 )
+custom_data_array = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 
 [node name="Arena" type="Spatial"]
 script = ExtResource( 6 )
@@ -85,10 +92,10 @@ shape = SubResource( 8 )
 [node name="Position3D" type="Position3D" parent="Cannons/StaticBody3"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 6 )
+environment = SubResource( 15 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.954667, 0.000950742, -0.297673, 0.297675, -0.00304911, 0.954663, 0, -0.999995, -0.00319389, 0, 4.72053, 0 )
+transform = Transform( 1, 8.35187e-23, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0, 7.07157, 0 )
 visible = false
 shadow_enabled = true
 
@@ -97,11 +104,11 @@ extents = Vector3( 5.51842, 2.84551, 5.17123 )
 data = SubResource( 7 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4.50029, 0 )
-light_energy = 3.377
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.44834, 0 )
+light_energy = 5.844
 shadow_enabled = true
-spot_range = 12.645
-spot_angle = 81.33
+spot_range = 11.575
+spot_angle = 55.4886
 
 [node name="Goal_lines" type="Spatial" parent="."]
 
@@ -212,5 +219,9 @@ shape = SubResource( 12 )
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 shape = SubResource( 13 )
+
+[node name="GoalLineMM" type="MultiMeshInstance" parent="."]
+multimesh = SubResource( 14 )
+script = ExtResource( 2 )
 
 [connection signal="body_exited" from="RogueBallCatcher" to="." method="_on_RogueBallCatcher_body_exited"]

@@ -3,7 +3,6 @@ extends Node
 enum challenges {TROPHY, GEM, CRYSTAL, RELIC}
 var selectedChallenge:Vector2 = Vector2(0,0)
 
-
 var levelRules:Dictionary = {
 	"Level0":{
 		"Challenge0":{
@@ -101,11 +100,11 @@ var levelRules:Dictionary = {
 				"InstantFail":false
 			},
 			"Player":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Npc":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Arena":{
@@ -135,11 +134,11 @@ var levelRules:Dictionary = {
 				"InstantFail":true
 			},
 			"Player":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Npc":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Arena":{
@@ -152,11 +151,11 @@ var levelRules:Dictionary = {
 				"InstantFail":true
 			},
 			"Player":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Npc":{
-				"Hp":15,
+				"Hp":12,
 				"Abilities": ["ForcePush", "ForceMagnet"]
 			},
 			"Arena":{

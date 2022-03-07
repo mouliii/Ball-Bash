@@ -26,8 +26,8 @@ func LoadSettings()->void:
 				OS.window_fullscreen = 0
 				OS.window_borderless = 0
 				OS.window_maximized = false
-				OS.window_size = Vector2(1024,600)
-				OS.window_position = OS.get_screen_size() / 4
+				#OS.window_size = Vector2(1024,600)
+				#OS.window_position = OS.get_screen_size() / 4
 			1:
 				OS.window_fullscreen = 1
 			2:
@@ -49,6 +49,7 @@ func CreateDefaultSettings()->void:
 	file.set_value("video_settings", "bloom", 1)
 	file.set_value("gameplay", "fov", 70)
 	file.set_value("gameplay", "show_fps", 0)
+	file.set_value("gameplay", "cart_color", Color(1,1,1,1))
 	file.save(filePath + fileName)
 
 func LoadValue(section:String, key:String):

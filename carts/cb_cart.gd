@@ -9,6 +9,7 @@ export (NodePath) var balls
 var position_id:int = -1
 var speed:float = 400
 var health:int = 5
+var indicatorColor:Color
 
 var forceAvailable:bool = true
 const forcePushRadius := 1.8
@@ -18,6 +19,8 @@ const forceInternalCD := 0.3
 func _ready():
 	old_visual_transform = get_node("Mesh").global_transform
 	visual_transfrom = get_node("Mesh").global_transform
+	ChangeIndicatorColor(Color.yellow)
+	#ChangeCartColor(Color(62,141,93,1))
 
 # interpolate visuals
 func _process(_delta):
@@ -38,12 +41,23 @@ func TriggerDeath():
 		get_node("ForceMagnet").DisableAll()
 
 func ChangeIndicatorColor(color:Color)->void:
+#	var material:Material = $Mesh/Indicator.get_active_material(0)
+#	material.albedo_color = color
+#	$Mesh/Indicator.mesh.surface_set_material(0, material)
+	indicatorColor = color
+
+func ChangeIndicatorColorMesh(color:Color)->void:
 	var material:Material = $Mesh/Indicator.get_active_material(0)
 	material.albedo_color = color
 	$Mesh/Indicator.mesh.surface_set_material(0, material)
 
+func ChangeCartColor(color:Color)->void:
+	var material:Material = $Mesh/Cart.get_active_material(0)
+	material.albedo_color = color
+	$Mesh/Cart.mesh.surface_set_material(0, material)
+
 func _on_Timer_timeout():
-	ChangeIndicatorColor(Color(2,2,0))
+	ChangeIndicatorColor(Color(1,1,0))
 
 func _on_CPU_forceReaction_timeout():
 	pass # Replace with function body.

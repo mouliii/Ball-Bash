@@ -1,12 +1,15 @@
 extends Spatial
 
-onready var animPlayer = get_node("CanvasLayer/AnimationPlayer")
+onready var animPlayer = get_node("CanvasLayer/Countdown/AnimationPlayer")
 onready var ball_template = preload("res://assets/balls/Ball.tscn")
 onready var character_template = preload("res://carts/Player.tscn")
 onready var arena = get_node("arena")
 onready var ballTimer = get_node("BallTimer")
 onready var gui = get_node("CanvasLayer")
 onready var gameTests = get_node("GameTests")
+#ballerot
+onready var mmBalls = get_node("DrawMeshes/Balls")
+onready var ballContainer = get_node("Balls")
 
 var ballSpawnTime:float = 1.0
 var maxActiveBalls:int = 4
@@ -33,18 +36,27 @@ func _ready():
 	# game
 	randomize()
 	SetupGame()
+	RandomizeCartColors()
 	gui.SetupGui()
 	arena.connect("ballDropped", self, "StartBallTimer")
 	gui.connect("restartGame", self, "SetupGame")
 	gui.connect("randomWinner", self, "RandomWinner")
-	set_process(false)
-	set_physics_process(false)
+	DrawBalls()
+	#set_process(false)
+	#set_physics_process(false)
 
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().paused = true
 		$CanvasLayer/GUI/PauseMenu.show()
 		$CanvasLayer/GUI/PauseMenu/VBoxContainer/Resume.grab_focus()
+
+func _process(_delta):
+	#balls
+	DrawBalls()
+	#players
+	DrawPlayers()
+	#character?
 
 func HealthChanged(player:int, damage:int):
 	if ballTimer.is_stopped():
@@ -64,14 +76,14 @@ func SpawnBall() -> void:
 	ball.global_transform.origin = GetBallSpawnPoint()
 	ball.LaunchBall()
 	gui.UpdateBallCount()
+	
 
 func _on_BallTimer_timeout():
 	SpawnBall()
 	if get_node("Balls").get_child_count() < maxActiveBalls:
 		ballTimer.start(ballSpawnTime)
 
-func StartBallTimer():
-	# todo erroria kun alt f4 pelistä 
+func StartBallTimer(): 
 	ballTimer.start(ballSpawnTime)
 
 func ReduceHealth(player:int, damage:int):
@@ -151,7 +163,7 @@ func SetupGame():
 		for b in $Balls.get_children():
 			b.queue_free()
 	gui.SetupGui()
-	$CanvasLayer/AnimationTree.get("parameters/playback").start("3")
+	$CanvasLayer/Countdown/AnimationTree.get("parameters/playback").start("3")
 
 func StartGameCountdown(_pitaa_olla_joku_string_koska_godot:String)->void:
 	# animPlayer.connect ei tee signaalia joten custom track "0" animaatioon
@@ -176,7 +188,7 @@ func GameLost()->void:
 	$CanvasLayer/GUI/RetryMenu/VBoxContainer/Retry.grab_focus()
 	score = [0,0,0,0]
 	for p in $Players.get_children():
-		p.get_node("Controls").set_script(null)
+		p.DisableControls(1)
 
 
 func _on_ReturnToMainMenu_timeout():
@@ -235,3 +247,57 @@ func TestWin(winner:KinematicBody)->void:
 			$CanvasLayer/GUI/ScoreScreen.show()
 			$RestartGame.start(gui.menuOpenTime)
 	# win animaatio
+
+func DrawBalls()->void:
+	var nChilds:int = ballContainer.get_child_count()
+	for i in range(0, 4):
+		if i >= nChilds:
+			var ZERO_TRANSFORM = Transform.IDENTITY.scaled(Vector3.ZERO)
+			mmBalls.multimesh.set_instance_transform(i, ZERO_TRANSFORM)
+		else:
+			var ballTransform:Transform = ballContainer.get_child(i).global_transform
+			mmBalls.multimesh.set_instance_transform(i, ballTransform)
+
+func DrawPlayers()->void:
+	var cartMM:MultiMesh = get_node("DrawMeshes/Players/Carts").multimesh
+	var indMM:MultiMesh = get_node("DrawMeshes/Players/Indicator").multimesh
+	for i in range(0, get_node("Players").get_child_count()):
+		var player = get_node("Players").get_child(i)
+		if player.health > 0:
+			cartMM.set_instance_transform(i, player.get_node("Mesh/Cart").global_transform)
+			indMM.set_instance_transform(i, player.get_node("Mesh/Indicator").global_transform)
+			indMM.set_instance_color(i, player.indicatorColor)
+		else:
+			var ZERO_TRANSFORM = Transform.IDENTITY.scaled(Vector3.ZERO)
+			cartMM.set_instance_transform(i, ZERO_TRANSFORM)
+			indMM.set_instance_transform(i, ZERO_TRANSFORM)
+
+func RandomizeCartColors():
+	var cartMM:MultiMesh = get_node("DrawMeshes/Players/Carts").multimesh
+	cartMM.set_instance_color(0, Config.LoadValue("gameplay", "cart_color"))
+	for i in range(1,4):
+		cartMM.set_instance_color(i, Color(randf(), randf(), randf(), 1.0 ))
+
+func GetPlayerColors()->Array:
+	var cartMM:MultiMesh = get_node("DrawMeshes/Players/Carts").multimesh
+	var colorArr:Array = []
+	for i in range(0,4):
+		colorArr.append(cartMM.get_instance_color(i))
+	return colorArr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

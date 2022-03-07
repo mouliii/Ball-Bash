@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://levels/crash_ball/gltf/new_arena/cannon.material" type="Material" id=1]
 [ext_resource path="res://levels/crash_ball/gltf/new_arena/ground_corners.material" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://levels/crash_ball/textures/goal_line/goal_line_halfheight_albedo.png" type="Texture" id=5]
 [ext_resource path="res://levels/crash_ball/textures/goal_line/goal_line_normal.png" type="Texture" id=6]
 [ext_resource path="res://levels/crash_ball/textures/ground/bash_floor_albedo.png" type="Texture" id=7]
+[ext_resource path="res://levels/crash_ball/arena_goal_line.tres" type="QuadMesh" id=8]
 
 [sub_resource type="ArrayMesh" id=6]
 resource_name = "arena_Cylinder2"
@@ -144,29 +145,6 @@ surfaces/0 = {
 "vertex_count": 12
 }
 
-[sub_resource type="SpatialMaterial" id=13]
-resource_local_to_scene = true
-albedo_color = Color( 0, 0.607843, 1, 1 )
-albedo_texture = ExtResource( 5 )
-normal_enabled = true
-normal_scale = 1.0
-normal_texture = ExtResource( 6 )
-
-[sub_resource type="ArrayMesh" id=9]
-resource_name = "arena_Plane002"
-surfaces/0 = {
-"aabb": AABB( -4.25547, 0, 3.93314, 8.51095, 1e-05, 0.32234 ),
-"array_data": PoolByteArray( 214, 44, 136, 192, 0, 0, 0, 0, 214, 44, 136, 64, 0, 127, 129, 63, 171, 71, 124, 34, 214, 44, 136, 64, 0, 0, 0, 0, 214, 44, 136, 64, 0, 127, 129, 63, 167, 198, 124, 34, 160, 184, 123, 192, 0, 0, 0, 0, 160, 184, 123, 64, 0, 127, 129, 63, 33, 71, 230, 59, 160, 184, 123, 64, 0, 0, 0, 0, 160, 184, 123, 64, 0, 127, 129, 63, 28, 198, 230, 59 ),
-"array_index_data": PoolByteArray( 0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 3, 0 ),
-"blend_shape_data": [  ],
-"format": 2194711,
-"index_count": 6,
-"material": SubResource( 13 ),
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 4
-}
-
 [sub_resource type="SpatialMaterial" id=14]
 resource_local_to_scene = true
 albedo_color = Color( 0, 0.607843, 1, 1 )
@@ -254,17 +232,21 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="line0" type="MeshInstance" parent="."]
-mesh = SubResource( 9 )
+visible = false
+mesh = ExtResource( 8 )
 material/0 = null
 
 [node name="line1" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 11 )
 material/0 = null
 
 [node name="line2" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 12 )
 material/0 = null
 
 [node name="line3" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 10 )
 material/0 = null

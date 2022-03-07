@@ -3,6 +3,7 @@ extends Spatial
 onready var parent = get_parent()
 var old_transform:Transform = Transform()
 var target_transform:Transform = Transform()
+var isSide:bool = false
 
 func _ready():
 	old_transform = get_node("../Mesh").global_transform
@@ -32,10 +33,29 @@ func _physics_process(delta):
 		if push and canUsePush:
 			if push.forceAvailable:
 				push.UseForcePush()
-
-	var input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var vel = transform.basis.x * input * parent.speed * delta
-	var newPos = global_transform.origin.move_toward(global_transform.origin + vel, parent.speed * delta * delta)
-	newPos.x = clamp(newPos.x, -2.7, 2.7)
-	parent.global_transform.origin = newPos
-	#parent.move_and_slide(vel, Vector3.UP)
+	# ei jaksa enään säätää
+	match parent.position_id:
+		0:
+			var input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+			var vel = transform.basis.x * input * parent.speed * delta
+			var newPos = global_transform.origin.move_toward(global_transform.origin + vel, parent.speed * delta * delta)
+			newPos.x = clamp(newPos.x, -2.7, 2.7)
+			parent.global_transform.origin = newPos
+		1:
+			var input = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
+			var vel = transform.basis.x * input * parent.speed * delta
+			var newPos = global_transform.origin.move_toward(global_transform.origin + vel, parent.speed * delta * delta)
+			newPos.x = clamp(newPos.x, -2.7, 2.7)
+			parent.global_transform.origin = newPos
+		2:
+			var input = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
+			var vel = -transform.basis.z * input * parent.speed * delta
+			var newPos = global_transform.origin.move_toward(global_transform.origin + vel, parent.speed * delta * delta)
+			newPos.z = clamp(newPos.z, -2.7, 2.7)
+			parent.global_transform.origin = newPos
+		3:
+			var input = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
+			var vel = transform.basis.z * input * parent.speed * delta
+			var newPos = global_transform.origin.move_toward(global_transform.origin + vel, parent.speed * delta * delta)
+			newPos.z = clamp(newPos.z, -2.7, 2.7)
+			parent.global_transform.origin = newPos
