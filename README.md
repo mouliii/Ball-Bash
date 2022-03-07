@@ -2,21 +2,7 @@ Ball Bash
 
 Ball Bash is copy of Crash Bash ballistix mini game, hence the name Ball Bash.
 The goal of the game is protect your goal and push balls to your opponents goal.
-Game includes first two levels and challenges.
-
-Update 07.03.22:
-
-Online mode added:
-  - Communication in not encrypted
-  - Ports may need to be open
-  - Ability usage is client side
-
-
-TODO:
-- cleaner and better ui e.g. animations
-- last two levels
-- better visuals
-- add all abilities and game modifiers to multiplayer
+Game includes first two levels and challenges and multiplayer.
 
 
 ![Capture2](https://user-images.githubusercontent.com/28023042/157065280-53842a97-dcba-459e-87ff-436bfa3fad48.PNG)
