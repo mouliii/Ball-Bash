@@ -77,3 +77,5 @@ func DisableAll()->void:
 	$ForcePushArea/CollisionShape.disabled = true
 	$Particles.emitting = false
 	
+func Reset()->void:
+	forceAvailable = true

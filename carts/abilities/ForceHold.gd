@@ -86,3 +86,6 @@ func DisableAll():
 
 func _on_CPU_ReleaseTimer_timeout():
 	ShootBalls()
+
+func Reset()->void:
+	DeactivateMagnet()

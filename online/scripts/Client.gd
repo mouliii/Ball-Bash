@@ -2,7 +2,7 @@ extends Node
 
 
 var ip:String = "127.0.0.1"
-var port:int = 28960
+var port:int = 27015
 var network = NetworkedMultiplayerENet.new()
 
 var connectedPlayers = {}

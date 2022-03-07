@@ -82,6 +82,7 @@ margin_left = 470.0
 margin_right = 530.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
+disabled = true
 align = 1
 
 [node name="ColorRect1" type="ColorRect" parent="VBoxContainer/GridContainer"]
@@ -108,6 +109,7 @@ margin_top = 64.0
 margin_right = 530.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 60, 60 )
+disabled = true
 align = 1
 
 [node name="ColorRect2" type="ColorRect" parent="VBoxContainer/GridContainer"]
@@ -135,6 +137,7 @@ margin_top = 128.0
 margin_right = 530.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 60, 60 )
+disabled = true
 align = 1
 
 [node name="ColorRect3" type="ColorRect" parent="VBoxContainer/GridContainer"]
@@ -162,6 +165,7 @@ margin_top = 192.0
 margin_right = 530.0
 margin_bottom = 252.0
 rect_min_size = Vector2( 60, 60 )
+disabled = true
 align = 1
 
 [node name="ColorRect4" type="ColorRect" parent="VBoxContainer/GridContainer"]

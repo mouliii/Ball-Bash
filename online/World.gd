@@ -128,6 +128,7 @@ func ResetGame(positionids:Array)->void:
 	HideCurrentScore()
 	PlayCountdown()
 	playerRef.get_node("OnlineSkillHelper").set_process(true)
+	playerRef.ResetSkills()
 
 func DisableControls(state:int)->void:
 	playerRef.DisableControls(state)

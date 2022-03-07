@@ -68,3 +68,9 @@ func ShowSkin()->void:
 
 func DisableControls(value:bool)->void:
 	$Controls.set_physics_process(false if value else true)
+
+func ResetSkills()->void:
+	if get_node_or_null("ForcePush"):
+		get_node("ForcePush").Reset()
+	if get_node_or_null("ForceMagnet"):
+		get_node("ForceMagnet").Reset()
